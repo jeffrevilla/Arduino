@@ -1,0 +1,10 @@
+ value=ping();
+  Serial.println(value);
+  delay(10);
+  if (value<20){
+  stp();
+  bwd();
+  rgt();
+  } else {
+    fwd();
+  }

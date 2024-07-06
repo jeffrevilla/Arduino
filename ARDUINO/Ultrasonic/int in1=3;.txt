@@ -1,0 +1,82 @@
+int in1=3;
+int in2=4;
+int in3=5;
+int in4=6;
+
+int trigPin= 7;
+int echoPin= 8;
+
+float duration,distance,value;
+
+void setup(){
+
+pinMode(in1,OUTPUT);
+pinMode(in2,OUTPUT);
+pinMode(in3,OUTPUT);
+pinMode(in4,OUTPUT);
+pinMode(trigPin,OUTPUT);
+pinMode(echoPin,INPUT);
+Serial.begin(9600);
+}
+
+void loop(){
+  value=ping();
+  Serial.println(value);
+  delay(10);
+
+  if (value>20)
+  fwd();
+
+   if (value<20)
+  stp();
+  delay(100);
+  bwd();
+  delay(100);
+  rgt();
+  delay(500);
+}
+
+void fwd(){
+  digitalWrite(in1,LOW);
+  digitalWrite(in2,HIGH);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4,LOW);
+}
+
+void bwd(){
+  digitalWrite(in1,HIGH);
+  digitalWrite(in2,LOW);
+  digitalWrite(in3,LOW);
+  digitalWrite(in4,HIGH);
+}
+
+void rgt(){
+  digitalWrite(in1,LOW);
+  digitalWrite(in2,LOW);
+  digitalWrite(in3,HIGH);
+  digitalWrite(in4,LOW);
+}
+
+void lft(){
+  digitalWrite(in1,LOW);
+  digitalWrite(in2,HIGH);
+  digitalWrite(in3,LOW);
+  digitalWrite(in4,LOW);
+}
+
+void stp(){
+  digitalWrite(in1,LOW);
+  digitalWrite(in2,LOW);
+  digitalWrite(in3,LOW);
+  digitalWrite(in4,LOW);
+}
+
+int ping(){
+  digitalWrite(trigPin,LOW);
+  delayMicroseconds(10);
+  digitalWrite(trigPin,HIGH);
+  delayMicroseconds(10);
+  duration=pulseIn(echoPin,HIGH);
+  distance=duration*0.034/2;
+  return distance;
+}
